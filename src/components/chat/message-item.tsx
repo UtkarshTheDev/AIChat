@@ -22,7 +22,6 @@ interface CodeProps {
 export default function MessageItem({ message }: MessageItemProps) {
   const isUser = message.role === "user";
   const timestamp = message.timestamp ? formatDate(message.timestamp) : "";
-  const [isStreamComplete, setIsStreamComplete] = useState(false);
   const [streamText, setStreamText] = useState("");
   const [isReadyToRender, setIsReadyToRender] = useState(false);
   const messageRef = React.useRef<HTMLDivElement>(null);
@@ -98,7 +97,6 @@ export default function MessageItem({ message }: MessageItemProps) {
 
   // When streaming is complete
   const handleStreamComplete = () => {
-    setIsStreamComplete(true);
     setStreamText(message.content);
   };
 

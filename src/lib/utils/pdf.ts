@@ -29,17 +29,14 @@ export async function extractTextFromPDF(file: File): Promise<string> {
     let fullText = "";
 
     // Iterate through each page to extract text
-    for (let i = 1; i <= pdf.numPages; i++) {
-      const page = await pdf.getPage(i);
-      const textContent = await page.getTextContent();
-      const textItems = textContent.items;
+for (let i = 1; i <= pdf.numPages; i++) {
+  const page = await pdf.getPage(i);
+  const textContent = await page.getTextContent();
+  const textItems = textContent.items as { str: string }[];
 
-      // Extract text from text items
-      const pageText = textItems.map((item: any) => item.str).join(" ");
-
-      fullText += pageText + "\n\n";
-    }
-
+  const pageText = textItems.map((item) => item.str).join(" ");
+  fullText += pageText + "\n\n";
+}
     return fullText.trim();
   } catch (error) {
     console.error("Error extracting text from PDF:", error);

@@ -7,6 +7,7 @@ import { extractTextFromPDF } from "@/lib/utils/pdf";
 import { toast } from "sonner";
 import { AttachedFile } from "@/lib/store/chat-store";
 import { motion } from "motion/react";
+import Image from "next/image";
 
 interface FileUploadProps {
   onFileUpload: (file: AttachedFile) => void;
@@ -36,7 +37,7 @@ export default function FileUpload({
   useEffect(() => {
     setMounted(true);
   }, []);
-
+console.log("Is Mounted:", mounted);
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
       try {
@@ -119,7 +120,7 @@ export default function FileUpload({
       >
         {currentFile.type.startsWith("image/") ? (
           <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 border border-white/10">
-            <img
+            <Image
               src={currentFile.url}
               alt={currentFile.name}
               className="w-full h-full object-cover"

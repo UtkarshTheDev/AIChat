@@ -3,7 +3,6 @@
 import { Toaster } from "sonner";
 import dynamic from "next/dynamic";
 import {
-  Bot,
   Github,
   Shield,
   ShieldCheck,

@@ -1,6 +1,6 @@
 import React, { useState, useRef, KeyboardEvent } from "react";
 import { Button } from "@/components/ui/button";
-import { Send, Paperclip, Smile, X } from "lucide-react";
+import { Send, Paperclip, X } from "lucide-react";
 import { AttachedFile } from "@/lib/store/chat-store";
 import FileUpload from "./file-upload";
 import { motion, AnimatePresence } from "motion/react";

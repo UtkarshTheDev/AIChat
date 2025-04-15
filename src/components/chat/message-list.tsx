@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { ChatMessage } from "@/lib/api/gemini";
 import MessageItem from "./message-item";
-import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "motion/react";
 import { Shield, MessageCircle, ChevronDown } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";

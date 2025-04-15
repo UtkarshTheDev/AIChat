@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import MessageList from "./message-list";
 import ChatInput from "./chat-input";
 import { useChatStore, AttachedFile } from "@/lib/store/chat-store";
 import {
   generateChatResponse,
   generateImageResponse,
-  ChatMessage,
 } from "@/lib/api/gemini";
 import { toast } from "sonner";
 import { Shield, Sparkles } from "lucide-react";
