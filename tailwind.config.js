@@ -26,7 +26,7 @@ export default {
           light: "#a78bfa", // violet-400
         },
         background: {
-          DEFAULT: "#0f172a", // slate-900
+          DEFAULT: "#000", // slate-900
           dark: "#020617", // slate-950
           light: "#1e293b", // slate-800
         },
@@ -73,7 +73,41 @@ export default {
           },
         },
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            color: "white",
+            a: {
+              color: "#3b82f6",
+              "&:hover": {
+                color: "#60a5fa",
+              },
+            },
+            h1: {
+              color: "white",
+            },
+            h2: {
+              color: "white",
+            },
+            h3: {
+              color: "white",
+            },
+            h4: {
+              color: "white",
+            },
+            strong: {
+              color: "white",
+            },
+            code: {
+              color: "white",
+            },
+            blockquote: {
+              color: "rgba(255, 255, 255, 0.8)",
+            },
+          },
+        },
+      },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };

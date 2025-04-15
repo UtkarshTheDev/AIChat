@@ -2,8 +2,9 @@ import React, { useEffect, useRef } from "react";
 import { ChatMessage } from "@/lib/api/gemini";
 import MessageItem from "./message-item";
 import { cn } from "@/lib/utils";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { Shield, MessageCircle, ChevronDown } from "lucide-react";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 interface MessageListProps {
   messages: ChatMessage[];
@@ -18,10 +19,10 @@ export default function MessageList({
   const containerRef = useRef<HTMLDivElement>(null);
   const [showScrollDown, setShowScrollDown] = React.useState(false);
 
-  // Auto-scroll to bottom when messages change
+  // Auto-scroll to bottom when messages change or loading state changes
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messages, isLoading]);
 
   // Check if we need to show the scroll down button
   useEffect(() => {
@@ -47,6 +48,78 @@ export default function MessageList({
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
+  // Custom typing indicator component
+  const TypingIndicator = () => (
+    <motion.div
+      className="flex gap-3 py-3 px-4 justify-start w-full"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10, transition: { duration: 0.2 } }}
+      transition={{ duration: 0.3 }}
+      key="typing-indicator"
+    >
+      {/* Bot Avatar */}
+      <motion.div
+        className="flex-shrink-0 mt-1"
+        initial={{ scale: 0.8 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.3 }}
+      >
+        <div className="relative">
+          <Avatar className="h-8 w-8 ring-2 ring-white/10 bg-black/40 backdrop-blur-sm shadow-lg">
+            <AvatarFallback className="bg-black/40">
+              <Shield className="h-4 w-4 text-primary" />
+            </AvatarFallback>
+          </Avatar>
+          <motion.div
+            className="absolute inset-0 rounded-full bg-primary/20"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.4, 0.2, 0.4],
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        </div>
+      </motion.div>
+
+      {/* Typing Animation Message Bubble */}
+      <motion.div
+        className="px-4 py-2.5 rounded-xl max-w-[85%] shadow-md flex items-center bg-black/50 backdrop-blur-sm border border-white/10 text-white rounded-tl-none"
+        initial={{ x: -15, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.3, type: "spring" }}
+      >
+        <div className="flex items-center">
+          <div className="flex items-center space-x-1">
+            {[0, 1, 2].map((i) => (
+              <motion.div
+                key={`dot-${i}`}
+                className="w-2 h-2 rounded-full bg-white/80"
+                animate={{
+                  y: ["0%", "-30%", "0%"],
+                  opacity: [0.6, 1, 0.6],
+                }}
+                transition={{
+                  duration: 0.8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.15,
+                }}
+              />
+            ))}
+          </div>
+          <span className="ml-3 text-sm text-white/80 font-medium">
+            FilterX is typing...
+          </span>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
 
   return (
     <div
@@ -93,50 +166,10 @@ export default function MessageList({
           {messages.map((message) => (
             <MessageItem key={message.id} message={message} />
           ))}
-          {isLoading && (
-            <div className="flex items-center justify-start p-4 pl-16">
-              <div className="flex space-x-1.5">
-                <motion.div
-                  className="size-2.5 rounded-full bg-primary/80"
-                  animate={{
-                    opacity: [0.4, 1, 0.4],
-                    scale: [0.8, 1, 0.8],
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-                <motion.div
-                  className="size-2.5 rounded-full bg-primary/80"
-                  animate={{
-                    opacity: [0.4, 1, 0.4],
-                    scale: [0.8, 1, 0.8],
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    delay: 0.2,
-                    ease: "easeInOut",
-                  }}
-                />
-                <motion.div
-                  className="size-2.5 rounded-full bg-primary/80"
-                  animate={{
-                    opacity: [0.4, 1, 0.4],
-                    scale: [0.8, 1, 0.8],
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    delay: 0.4,
-                    ease: "easeInOut",
-                  }}
-                />
-              </div>
-            </div>
-          )}
+
+          {/* Custom typing indicator with improved animation */}
+          <AnimatePresence>{isLoading && <TypingIndicator />}</AnimatePresence>
+
           <div ref={messagesEndRef} />
         </div>
       )}

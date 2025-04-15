@@ -44,7 +44,7 @@ export default function Chat() {
 
   // Handle form submission
   const handleSubmit = async (message: string) => {
-    if (!message.trim()) return;
+    if (!message.trim() || isLoading) return;
 
     try {
       // Add user message to chat
@@ -53,7 +53,13 @@ export default function Chat() {
         content: message,
       });
 
+      // Set loading state immediately to show the typing animation
       setLoading(true);
+
+      // Scroll to the bottom to show typing indicator
+      setTimeout(() => {
+        chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
 
       let response: string;
 
@@ -94,20 +100,30 @@ export default function Chat() {
         );
       }
 
-      // Add AI response to chat
+      // Format the response to look better with markdown
+      const formattedResponse = response.trim();
+
+      // First clear the loading state to hide typing indicator
+      setLoading(false);
+
+      // Small delay to ensure smooth transition
+      await new Promise((resolve) => setTimeout(resolve, 50));
+
+      // Then add AI response to chat
       addMessage({
         role: "model",
-        content: response,
+        content: formattedResponse,
       });
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "An unexpected error occurred";
       setError(errorMessage);
-    } finally {
       setLoading(false);
+    } finally {
+      // Scroll to bottom after adding the AI response
       setTimeout(() => {
         chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-      }, 100);
+      }, 200);
     }
   };
 
@@ -123,13 +139,13 @@ export default function Chat() {
 
   return (
     <motion.div
-      className="w-full max-w-4xl h-[550px] md:h-[650px] rounded-2xl overflow-hidden shadow-2xl flex flex-col bg-gradient-to-b from-black/70 to-black/80 backdrop-blur-md border border-white/10"
+      className="w-full max-w-6xl h-[600px] md:h-[700px] rounded-2xl overflow-hidden shadow-2xl flex flex-col bg-gradient-to-b from-black/70 to-black/80 backdrop-blur-md border border-white/10"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.2 }}
     >
       <motion.div
-        className="p-4 border-b border-white/10 backdrop-blur-sm bg-black/40"
+        className="p-3 border-b border-white/10 backdrop-blur-sm bg-black/40"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4, delay: 0.4 }}
