@@ -1,61 +1,63 @@
-# AI Chat Application with Gemini
+# AI Chat with Gemini
 
-A modern dark-themed AI chat application powered by Google's Gemini API. Chat with AI, upload images for visual understanding, and analyze PDF documents.
+Experience seamless conversations with AI through a sleek, dark-themed interface powered by Google's Gemini API. Upload images for instant analysis or PDFs for insightful discussions—all wrapped in a responsive, user-friendly design.
 
-## Features
+> **Note:** This app began as docs and demo for another project that didn't work out. Now, it's a simple AI chat app with Gemini and a great UI.
 
-- 🤖 AI chat with Google Gemini
-- 🖼️ Image upload and analysis
-- 📄 PDF text extraction and chat
-- 🌙 Modern dark theme with beautiful UI
-- 💬 Chat history persistence
-- 🔄 Real-time responses
-- 📱 Mobile responsive design
+## Key Features
 
-## Getting Started
+- Intelligent AI conversations with Google Gemini
+- Visual content analysis via image uploads
+- PDF text extraction and interactive querying
+- Elegant dark theme for a modern aesthetic
+- Persistent chat history for continuity
+- Instant, real-time AI responses
+- Fully responsive across devices
 
-### Prerequisites
+## Quick Start
 
-- [Bun](https://bun.sh/) (for package management)
+### Requirements
+
+- [Bun](https://bun.sh/) for efficient package management
 - [Google Gemini API key](https://aistudio.google.com/app/apikey)
 
-### Installation
+### Setup
 
 1. Clone the repository:
 
-```bash
-git clone https://github.com/yourusername/filterx.git
-cd filterx
-```
+   ```bash
+   git clone https://github.com/yourusername/filterx.git
+   cd filterx
+   ```
 
 2. Install dependencies:
 
-```bash
-bun install
-```
+   ```bash
+   bun install
+   ```
 
-3. Create an `.env.local` file in the project root and add your Gemini API key:
+3. Set up your API key by creating `.env.local` in the root directory:
 
-```
-NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key_here
-```
+   ```
+   NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key_here
+   ```
 
-4. Start the development server:
+4. Launch the development server:
 
-```bash
-bun run dev
-```
+   ```bash
+   bun run dev
+   ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+5. Visit [http://localhost:3000](http://localhost:3000) to start chatting.
 
-## Usage
+## How to Use
 
-- Type your message in the input field and press Enter or click the send button to chat with the AI.
-- Click the paper clip icon to upload an image or PDF file.
-- For image uploads, the AI will analyze the image and respond based on the content.
-- For PDF uploads, the AI will extract the text and allow you to ask questions about the content.
+- Enter your message and hit Enter or the send button to engage with the AI.
+- Use the attachment icon to upload images or PDFs.
+- For images, the AI provides detailed analysis and responses.
+- For PDFs, extract text and pose questions about the content.
 
-## Technology Stack
+## Tech Stack
 
 - **Frontend**: Next.js, React, Tailwind CSS
 - **UI Components**: shadcn/ui
@@ -66,10 +68,10 @@ bun run dev
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License. Refer to the LICENSE file for more details.
 
 ## Acknowledgments
 
-- [Google Gemini](https://blog.google/technology/ai/google-gemini-ai/) for the powerful AI capabilities
-- [shadcn/ui](https://ui.shadcn.com/) for the beautiful UI components
-- [Next.js](https://nextjs.org/) for the React framework
+- [Google Gemini](https://blog.google/technology/ai/google-gemini-ai/) for advanced AI capabilities
+- [shadcn/ui](https://ui.shadcn.com/) for stunning UI components
+- [Next.js](https://nextjs.org/) for the robust React framework
